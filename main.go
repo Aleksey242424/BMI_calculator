@@ -6,8 +6,7 @@ import (
 )
 
 func main() {
-	var userHeight float64 = 1.8
-	var userWeight float64 = 100
-	var BMI float64 = userWeight / math.Pow(userHeight, 2)
+	var userHeight, userWeight float64 = 1.8, 100
+	BMI := userWeight / math.Pow(userHeight, 2)
 	fmt.Print(BMI)
 }
