@@ -11,23 +11,29 @@ func main() {
 	fmt.Println("____ Калькулятор ИМТ ____")
 	var userHeight, userWeight float64 = getUserInput()
 	BMI := calculateIMT(userHeight, userWeight)
+	status := getStatus(BMI)
+	fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v", BMI, status)
+}
+
+func getStatus(BMI float64) string {
 	status := ""
-	if BMI < 16 {
+	switch {
+	case BMI < 16:
 		status = "Сильный дефицит массы тела !!!"
-	} else if BMI > 16 && BMI <= 18.5 {
+	case BMI > 16 && BMI <= 18.5:
 		status = "Дефицит массы тела !!"
-	} else if BMI > 18.5 && BMI <= 25 {
+	case BMI > 18.5 && BMI <= 25:
 		status = "Норма."
-	} else if BMI > 25 && BMI <= 30 {
+	case BMI > 25 && BMI <= 30:
 		status = "Избыточная масса !"
-	} else if BMI > 30 && BMI <= 35 {
+	case BMI > 30 && BMI <= 35:
 		status = "1-я степень ожирения !!"
-	} else if BMI > 35 && BMI <= 40 {
+	case BMI > 35 && BMI <= 40:
 		status = "2-я степень ожирения !!"
-	} else {
+	default:
 		status = "3-я степень ожирения !!!!"
 	}
-	fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v", BMI, status)
+	return status
 }
 
 func calculateIMT(userHeight, userWeight float64) float64 {
