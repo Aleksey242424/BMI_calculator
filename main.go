@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
 )
@@ -11,7 +12,11 @@ func main() {
 	fmt.Println("____ Калькулятор ИМТ ____")
 	for {
 		var userHeight, userWeight float64 = getUserInput()
-		BMI := calculateIMT(userHeight, userWeight)
+		BMI, err := calculateIMT(userHeight, userWeight)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 		status := getStatus(BMI)
 		fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v\n", BMI, status)
 		fmt.Println("Вы хотите сделать ещё расчёт (y/n): ")
@@ -52,9 +57,12 @@ func getStatus(BMI float64) string {
 	return status
 }
 
-func calculateIMT(userHeight, userWeight float64) float64 {
+func calculateIMT(userHeight, userWeight float64) (float64, error) {
+	if userHeight <= 0 || userWeight <= 0 {
+		return 0, errors.New("Не указан вес или высота")
+	}
 	result := userWeight / math.Pow(userHeight/100, BMIPower)
-	return result
+	return result, nil
 }
 
 func getUserInput() (float64, float64) {
