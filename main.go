@@ -9,10 +9,26 @@ const BMIPower = 2
 
 func main() {
 	fmt.Println("____ Калькулятор ИМТ ____")
-	var userHeight, userWeight float64 = getUserInput()
-	BMI := calculateIMT(userHeight, userWeight)
-	status := getStatus(BMI)
-	fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v", BMI, status)
+	for {
+		var userHeight, userWeight float64 = getUserInput()
+		BMI := calculateIMT(userHeight, userWeight)
+		status := getStatus(BMI)
+		fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v\n", BMI, status)
+		fmt.Println("Вы хотите сделать ещё расчёт (y/n): ")
+		userChoise := checkRepeatCalculation()
+		if !userChoise {
+			break
+		}
+	}
+}
+
+func checkRepeatCalculation() bool {
+	var userChoise string
+	fmt.Scan(&userChoise)
+	if userChoise == "y" || userChoise == "Y" {
+		return true
+	}
+	return false
 }
 
 func getStatus(BMI float64) string {
