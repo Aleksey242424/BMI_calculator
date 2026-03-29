@@ -14,8 +14,7 @@ func main() {
 		var userHeight, userWeight float64 = getUserInput()
 		BMI, err := calculateIMT(userHeight, userWeight)
 		if err != nil {
-			fmt.Println(err)
-			continue
+			panic(err)
 		}
 		status := getStatus(BMI)
 		fmt.Printf("Ваш ИМТ: %.2f\nСтатус: %v\n", BMI, status)
